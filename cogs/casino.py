@@ -100,9 +100,10 @@ class Casino(discord.ui.View):
 
 async def blackjack(user, bet, channel):
     #Define card deck as set
-    card_value = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
-    card_face = {}
+    card_face= {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
+    card_suit = {'hearts', 'diamonds', 'clubs', 'spades'}
     
+    await channel.send('test')
     print('test')
 
 
