@@ -102,9 +102,22 @@ async def blackjack(user, bet, channel):
     #Define card deck as set
     card_face= {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
     card_suit = {'hearts', 'diamonds', 'clubs', 'spades'}
+    deck = [{face, suit} for face in card_face for suit in card_suit]
+    random.shuffle(deck)
+
+    player_hand = []
+    dealer_hand = []
     
+    player_hand.append(deck.pop())
+    dealer_hand.append(deck.pop())
+    player_hand.append(deck.pop())
+    dealer_hand.append(deck.pop())
+
+    
+
     await channel.send('test')
     print('test')
+
 
 
 # Slots game, activated by button in !casino
