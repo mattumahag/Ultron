@@ -763,3 +763,23 @@ Traceback (most recent call last):
   File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/aiohttp/connector.py", line 1357, in _create_direct_connection
     raise ClientConnectorDNSError(req.connection_key, exc) from exc
 aiohttp.client_exceptions.ClientConnectorDNSError: Cannot connect to host gateway-us-east1-c.discord.gg:443 ssl:default [nodename nor servname provided, or not known]
+2025-02-10 21:55:26 - Ignoring exception in view <Casino timeout=180.0 children=2> for item <Button style=<ButtonStyle.secondary: 2> url=None disabled=False label='Blackjack ♠️' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 96, in Blackjack
+    await blackjack(user=interaction.user, bet=bet, channel=interaction.channel)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 139, in blackjack
+    dealer_visible = f"{dealer_hand[0][0]}{dealer_hand[0][1]} ??"
+                        ~~~~~~~~~~~~~~^^^
+TypeError: 'set' object is not subscriptable
+2025-02-10 21:57:29 - Ignoring exception in view <Casino timeout=180.0 children=2> for item <Button style=<ButtonStyle.secondary: 2> url=None disabled=False label='Blackjack ♠️' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 96, in Blackjack
+    await blackjack(user=interaction.user, bet=bet, channel=interaction.channel)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 139, in blackjack
+    dealer_visible = f"{dealer_hand[0][0]}{dealer_hand[0][1]} ??"
+                        ~~~~~~~~~~~~~~^^^
+TypeError: 'set' object is not subscriptable

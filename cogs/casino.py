@@ -2,6 +2,7 @@ import discord
 import json
 import random
 import time
+import asyncio
 from discord import *
 from discord.ext import commands
 from discord.ext.commands import has_permissions
@@ -100,9 +101,9 @@ class Casino(discord.ui.View):
 
 async def blackjack(user, bet, channel):
     #Define card deck as set
-    card_face= {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14}
-    card_suit = {'hearts', 'diamonds', 'clubs', 'spades'}
-    deck = [{face, suit} for face in card_face for suit in card_suit]
+    card_face= [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+    card_suit = ['hearts', 'diamonds', 'clubs', 'spades']
+    deck = [(face, suit) for face in card_face for suit in card_suit]
     random.shuffle(deck)
 
     player_hand = []
@@ -113,7 +114,115 @@ async def blackjack(user, bet, channel):
     player_hand.append(deck.pop())
     dealer_hand.append(deck.pop())
 
+    def calculate_hand(hand):
+        value = 0
+        aces = 0
+        for card in hand:
+            face = card[0]
+            if face in [11, 12, 13]:
+                value += 10
+            elif face == 14:
+                aces += 1
+            else:
+                value += int(face)
+        
+        for i in range(aces):
+            if value + 11 <= 21:
+                value += 11
+            else:
+                value += 1
+        return value
     
+    def format_hand(hand):
+        return ', '.join(f'{card[0]} of {card[1]}' for card in hand)
+    
+    dealer_visible = f"{dealer_hand[0][0]}{dealer_hand[0][1]} ??"
+    player_cards = format_hand(player_hand)
+    game_message = await channel.send(
+        f"Dealer's hand: {dealer_visible}\n"
+        f"{user.name}'s hand: {player_cards} (Value: {calculate_hand(player_hand)})"
+    )
+
+    while calculate_hand(player_hand) < 21:
+        view = discord.ui.View(timeout = 30)
+        hit_button = discord.ui.Button(label = 'Hit', style = discord.ButtonStyle.green)
+        stand_button = discord.ui.Button(label = 'Stand', style = discord.ButtonStyle.red)
+
+        future = asyncio.Future()
+
+        async def hit_callback(interaction):
+            if interaction.user == user:
+                future.set_result("hit")
+                view.stop()
+
+        async def stand_callback(interaction):
+            if interaction.user == user:
+                future.set_result("stand")
+                view.stop()
+
+        hit_button.callback = hit_callback
+        stand_button.callback = stand_callback
+        view.add_item(hit_button)
+        view.add_item(stand_button)
+
+        await game_message.edit(view = view)
+
+        try:
+            choice = await asyncio.wait_for(future, timeout = 30)
+        except asyncio.TimeoutError:
+            await channel.send("Time's up! Auto-standng.")
+            break
+
+        if choice == "hit":
+            player_hand.append(deck.pop())
+            player_value = calculate_hand(player_hand)
+            await game_message.edit(
+                content  = f"Dealer's hand: {dealer_visible}\n"
+                f"{user.name}'s hand: {player_cards} (Value: {player_value})"
+            )
+            if player_value > 21:
+                break
+        else:
+            break
+
+    dealer_value = calculate_hand(dealer_hand)
+    while dealer_value < 17:
+        dealer_hand.append(deck.pop())
+        dealer_value = calculate_hand(dealer_hand)
+
+    await game_message.edit(
+        content = f"Dealer's hand: {format_hand(dealer_hand)} (Value: {dealer_value})\n"
+        f"{user.name}'s hand: {player_cards} (Value: {calculate_hand(player_hand)})", 
+        view = None
+        )
+    
+    player_value = calculate_hand(player_hand)
+    with open("casinoData.json", "r") as f:
+        data = json.load(f)
+
+    current_balance = data["Users"][str(user.id)]["Balance"]
+
+    if player_value > 21:
+        result = f"{user.name} busts! Lost ${bet}."
+        new_balance = current_balance - bet
+    elif dealer_value > 21:
+        result = f"Dealer busts! {user.name} wins ${bet}"
+        new_balance = current_balance + bet
+    elif player_value > dealer_value:
+        result = f"{user.name} wins ${bet}!"
+        new_balance = current_balance + bet
+    elif dealer_value > player_value:
+        result = f"Dealer wins! {user.name} lost ${bet}"
+        new_balance = current_balance - bet
+    else:
+        result = "Push! Bet returned."
+        new_balance = current_balance
+
+    data["Users"][str(user.id)]["Balance"] = new_balance
+    with open("casinoData.json", "w") as f:
+        json.dump(data, f, indent=4)
+
+    await channel.send(f"{result}\nNew balance: ${new_balance}")
 
     await channel.send('test')
     print('test')
