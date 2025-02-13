@@ -86,13 +86,19 @@ class Casino(discord.ui.View):
             await interaction.response.send_message("You have 0 dollars!")
 
         def check(msg):
-                return msg.author == interaction.user and msg.channel == interaction.channel and int(msg.content)
-    
+            return (
+                msg.author == interaction.user
+                and msg.channel == interaction.channel
+                and int(msg.content)
+            )
+
         await interaction.response.defer()
-        q = await interaction.followup.send("How much will you bet " + interaction.user.name + "?")
+        q = await interaction.followup.send(
+            "How much will you bet " + interaction.user.name + "?"
+        )
 
         msg = await self.bot.wait_for("message", check=check)
-        bet=int(msg.content)
+        bet = int(msg.content)
         await blackjack(user=interaction.user, bet=bet, channel=interaction.channel)
         time.sleep(2)
         await msg.delete()
@@ -100,15 +106,15 @@ class Casino(discord.ui.View):
 
 
 async def blackjack(user, bet, channel):
-    #Define card deck as set
-    card_face= [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
-    card_suit = ['hearts', 'diamonds', 'clubs', 'spades']
+    # Define card deck as set
+    card_face = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+    card_suit = ["hearts", "diamonds", "clubs", "spades"]
     deck = [(face, suit) for face in card_face for suit in card_suit]
     random.shuffle(deck)
 
     player_hand = []
     dealer_hand = []
-    
+
     player_hand.append(deck.pop())
     dealer_hand.append(deck.pop())
     player_hand.append(deck.pop())
@@ -125,18 +131,18 @@ async def blackjack(user, bet, channel):
                 aces += 1
             else:
                 value += int(face)
-        
+
         for i in range(aces):
             if value + 11 <= 21:
                 value += 11
             else:
                 value += 1
         return value
-    
+
     def format_hand(hand):
-        return ', '.join(f'{card[0]} of {card[1]}' for card in hand)
-    
-    dealer_visible = f"{dealer_hand[0][0]}{dealer_hand[0][1]} ??"
+        return ", ".join(f"{card[0]} of {card[1]}" for card in hand)
+
+    dealer_visible = f"{dealer_hand[0][0]} {dealer_hand[0][1]}"
     player_cards = format_hand(player_hand)
     game_message = await channel.send(
         f"Dealer's hand: {dealer_visible}\n"
@@ -144,9 +150,9 @@ async def blackjack(user, bet, channel):
     )
 
     while calculate_hand(player_hand) < 21:
-        view = discord.ui.View(timeout = 30)
-        hit_button = discord.ui.Button(label = 'Hit', style = discord.ButtonStyle.green)
-        stand_button = discord.ui.Button(label = 'Stand', style = discord.ButtonStyle.red)
+        view = discord.ui.View(timeout=30)
+        hit_button = discord.ui.Button(label="Hit", style=discord.ButtonStyle.green)
+        stand_button = discord.ui.Button(label="Stand", style=discord.ButtonStyle.red)
 
         future = asyncio.Future()
 
@@ -165,10 +171,10 @@ async def blackjack(user, bet, channel):
         view.add_item(hit_button)
         view.add_item(stand_button)
 
-        await game_message.edit(view = view)
+        await game_message.edit(view=view)
 
         try:
-            choice = await asyncio.wait_for(future, timeout = 30)
+            choice = await asyncio.wait_for(future, timeout=30)
         except asyncio.TimeoutError:
             await channel.send("Time's up! Auto-standng.")
             break
@@ -177,7 +183,7 @@ async def blackjack(user, bet, channel):
             player_hand.append(deck.pop())
             player_value = calculate_hand(player_hand)
             await game_message.edit(
-                content  = f"Dealer's hand: {dealer_visible}\n"
+                content=f"Dealer's hand: {dealer_visible}\n"
                 f"{user.name}'s hand: {player_cards} (Value: {player_value})"
             )
             if player_value > 21:
@@ -191,11 +197,11 @@ async def blackjack(user, bet, channel):
         dealer_value = calculate_hand(dealer_hand)
 
     await game_message.edit(
-        content = f"Dealer's hand: {format_hand(dealer_hand)} (Value: {dealer_value})\n"
-        f"{user.name}'s hand: {player_cards} (Value: {calculate_hand(player_hand)})", 
-        view = None
-        )
-    
+        content=f"Dealer's hand: {format_hand(dealer_hand)} (Value: {dealer_value})\n"
+        f"{user.name}'s hand: {player_cards} (Value: {calculate_hand(player_hand)})",
+        view=None,
+    )
+
     player_value = calculate_hand(player_hand)
     with open("casinoData.json", "r") as f:
         data = json.load(f)
@@ -223,10 +229,6 @@ async def blackjack(user, bet, channel):
         json.dump(data, f, indent=4)
 
     await channel.send(f"{result}\nNew balance: ${new_balance}")
-
-    await channel.send('test')
-    print('test')
-
 
 
 # Slots game, activated by button in !casino
