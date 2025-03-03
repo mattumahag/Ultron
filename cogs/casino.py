@@ -62,7 +62,7 @@ class Casino(discord.ui.View):
             return (
                 msg.author == interaction.user
                 and msg.channel == interaction.channel
-                and float(msg.content)
+                and int(msg.content)
             )
 
         await interaction.response.defer()
@@ -107,7 +107,7 @@ class Casino(discord.ui.View):
 
 async def blackjack(user, bet, channel):
     # Define card deck as set
-    card_face = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+    card_face = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'jack', 'queen', 'king', 'ace']
     card_suit = ["hearts", "diamonds", "clubs", "spades"]
     deck = [(face, suit) for face in card_face for suit in card_suit]
     random.shuffle(deck)
@@ -125,9 +125,9 @@ async def blackjack(user, bet, channel):
         aces = 0
         for card in hand:
             face = card[0]
-            if face in [11, 12, 13]:
+            if face in ['jack', 'queen', 'king']:
                 value += 10
-            elif face == 14:
+            elif face == 'ace':
                 aces += 1
             else:
                 value += int(face)
@@ -142,7 +142,7 @@ async def blackjack(user, bet, channel):
     def format_hand(hand):
         return ", ".join(f"{card[0]} of {card[1]}" for card in hand)
 
-    dealer_visible = f"{dealer_hand[0][0]} {dealer_hand[0][1]}"
+    dealer_visible = f"{dealer_hand[0][0]} of {dealer_hand[0][1]}"
     player_cards = format_hand(player_hand)
     game_message = await channel.send(
         f"Dealer's hand: {dealer_visible}\n"
@@ -188,6 +188,7 @@ async def blackjack(user, bet, channel):
             )
             if player_value > 21:
                 break
+            break
         else:
             break
 

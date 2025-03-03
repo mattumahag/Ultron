@@ -1007,3 +1007,22 @@ aiohttp.client_exceptions.ClientConnectorDNSError: Cannot connect to host gatewa
 2025-02-11 10:33:27 - Shard ID None has connected to Gateway (Session ID: 415402dffcf0043c20c8b6066104702d).
 2025-02-11 10:33:29 - Can't keep up, shard ID None websocket is 12.8s behind.
 2025-02-11 10:35:10 - Can't keep up, shard ID None websocket is 27.0s behind.
+2025-03-03 10:26:41 - Shard ID None session has been invalidated.
+2025-03-03 10:26:46 - Shard ID None has connected to Gateway (Session ID: c3161608b906b373fd58d6064e87932a).
+2025-03-03 10:34:55 - Ignoring exception in view <Casino timeout=180.0 children=2> for item <Button style=<ButtonStyle.danger: 4> url=None disabled=False label='Slots 🎰' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 73, in Slots
+    msg = await self.bot.wait_for("message", check=check)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/tasks.py", line 452, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/client.py", line 482, in dispatch
+    result = condition(*args)
+             ^^^^^^^^^^^^^^^^
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 65, in check
+    and float(msg.content)
+        ^^^^^^^^^^^^^^^^^^
+ValueError: could not convert string to float: '!casino'
