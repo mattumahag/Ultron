@@ -190,7 +190,7 @@ class ultronAI(commands.Cog):
                     max_tokens=150,
                 )
 
-                answer = response.choices[0].message.content
+                answer = response.choices[0].message.content.strip('"')
                 user_input_snippet = message.author
                 logging.info(
                     f"Username: {message.author}, User Input: '{user_input_snippet}...', Input: {question}, Response: {answer}"

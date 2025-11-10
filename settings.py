@@ -7,7 +7,7 @@ muID = 239116660592738304
 chatbot = True
 
 # Enable/disable image generation
-imageGen = False
+imageGen = True
 
 # Enable/disable TTS
 TTS = True
