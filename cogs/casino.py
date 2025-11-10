@@ -188,12 +188,11 @@ async def blackjack(user, bet, channel):
             )
             if player_value > 21:
                 break
-            break
         else:
             break
 
     dealer_value = calculate_hand(dealer_hand)
-    while dealer_value < 17:
+    while dealer_value < 19:
         dealer_hand.append(deck.pop())
         dealer_value = calculate_hand(dealer_hand)
 
