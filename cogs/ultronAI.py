@@ -187,7 +187,7 @@ class ultronAI(commands.Cog):
                 response = openai.chat.completions.create(
                     model="gpt-4o",
                     messages=user_conversations[message.author.id],
-                    max_tokens=150,
+                    max_completion_tokens=150,
                 )
 
                 answer = response.choices[0].message.content.strip('"')
