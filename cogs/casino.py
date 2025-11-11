@@ -106,6 +106,22 @@ class Casino(discord.ui.View):
 
 
 async def blackjack(user, bet, channel):
+    # Checks if User has data in casinoData, if not uploads data starting with $1000
+    with open("casinoData.json") as f:
+        data = json.load(f)
+    if not contains_value("casinoData.json", user.id):
+        data["Users"][str(user.id)] = {"Balance": 1000}
+        with open("casinoData.json", "w") as f:
+            json.dump(data, f, indent=4)
+
+    userBalance = data["Users"][str(user.id)]["Balance"]
+
+    if userBalance < bet:
+        await channel.send(
+            f"You don't have enough balance to place a bet of {bet}. Your balance is {userBalance}."
+        )
+        return
+
     # Define card deck as set
     card_face = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'jack', 'queen', 'king', 'ace']
     card_suit = ["hearts", "diamonds", "clubs", "spades"]
@@ -338,7 +354,7 @@ class casino(commands.Cog):
     # Admin command: Add money to user
     @commands.command()
     async def addMoney(self, ctx, amount: float = None, member: discord.Member = None):
-        if ctx.author.id == 239116660592738304 or 722251013784076321:
+        if ctx.author.id == 239116660592738304:
             if amount is None:
                 ctx.send("Specify an amount to add.")
             if member is None:

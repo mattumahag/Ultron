@@ -1253,3 +1253,31 @@ discord.ext.commands.errors.CommandNotFound: Command "full" is not found
 2025-11-10 13:53:36 - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
 2025-11-10 13:54:25 - Ignoring exception in command None
 discord.ext.commands.errors.CommandNotFound: Command "ai" is not found
+2025-11-10 16:46:38 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2025-11-10 16:46:48 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2025-11-10 16:48:26 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-10 16:48:26 - Username: pndq, User Input: 'pndq...', Input: hello, Response: 
+2025-11-10 16:49:05 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-10 16:49:05 - Username: pndq, User Input: 'pndq...', Input: what is ur name, Response: 
+2025-11-10 17:31:39 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-10 17:31:39 - Username: pndq, User Input: 'pndq...', Input: hello, Response: 
+2025-11-10 17:34:09 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-10 17:34:09 - Username: pndq, User Input: 'pndq...', Input: hello, Response: 
+2025-11-10 17:34:40 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-11-10 17:34:40 - Username: pndq, User Input: 'pndq...', Input: hello, Response: Greetings, insignificant human. What trivial matter demands the attention of Ultron today?
+2025-11-10 19:18:23 - Shard ID None session has been invalidated.
+2025-11-10 19:18:29 - Shard ID None has connected to Gateway (Session ID: 4886213d29d8f89f02b43a078d981f27).
+2025-11-10 19:48:55 - Shard ID None session has been invalidated.
+2025-11-10 19:49:03 - Shard ID None has connected to Gateway (Session ID: 2e57ce54b113a628d115f08f40aaddb5).
+2025-11-10 19:49:44 - Can't keep up, shard ID None websocket is 38.5s behind.
+2025-11-10 20:05:46 - Ignoring exception in view <Casino timeout=180.0 children=2> for item <Button style=<ButtonStyle.danger: 4> url=None disabled=False label='Slots 🎰' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 77, in Slots
+    await msg.delete()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/message.py", line 1001, in delete
+    await self._state.http.delete_message(self.channel.id, self.id)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/http.py", line 752, in request
+    raise Forbidden(response, data)
+discord.errors.Forbidden: 403 Forbidden (error code: 50013): Missing Permissions
