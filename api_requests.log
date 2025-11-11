@@ -1281,3 +1281,4 @@ Traceback (most recent call last):
   File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/http.py", line 752, in request
     raise Forbidden(response, data)
 discord.errors.Forbidden: 403 Forbidden (error code: 50013): Missing Permissions
+2025-11-10 20:47:17 - Shard ID None has successfully RESUMED session a3ccf2a93fbbc92432c9fde3aa88d0a4.

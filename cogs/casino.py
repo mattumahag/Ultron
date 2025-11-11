@@ -224,7 +224,10 @@ async def blackjack(user, bet, channel):
 
     current_balance = data["Users"][str(user.id)]["Balance"]
 
-    if player_value > 21:
+    if player_value == 21:
+        result = f"{user.name} got Blackjack! Won ${bet *1.5}!"
+        new_balance = current_balance + (bet * 1.5)
+    elif player_value > 21:
         result = f"{user.name} busts! Lost ${bet}."
         new_balance = current_balance - bet
     elif dealer_value > 21:
