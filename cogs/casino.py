@@ -105,7 +105,7 @@ class Casino(discord.ui.View):
         time.sleep(2)
         await msg.delete()
         await q.delete()
-    
+
     @discord.ui.button(label="Mines 💣", style=discord.ButtonStyle.red)
     async def Mines(self, interaction: discord.Interaction, button: discord.ui.Button):
 
@@ -142,15 +142,52 @@ class Casino(discord.ui.View):
         await msg.delete()
         await q.delete()
 
-        await mines(user=interaction.user, bet=bet, mineCount=mineCount, channel=interaction.channel)
+        await mines(
+            user=interaction.user,
+            bet=bet,
+            mineCount=mineCount,
+            channel=interaction.channel,
+        )
 
 
 async def mines(user, bet, mineCount, channel):
+    # Checks if User has data in casinoData, if not uploads data starting with $1000
+    with open("casinoData.json") as f:
+        data = json.load(f)
+    if not contains_value("casinoData.json", user.id):
+        data["Users"][str(user.id)] = {"Balance": 1000}
+        with open("casinoData.json", "w") as f:
+            json.dump(data, f, indent=4)
+
+    userBalance = data["Users"][str(user.id)]["Balance"]
+
+    if mineCount < 1 or mineCount > 24:
+        await channel.send("Invalid mine count: You must place between 1 and 24 mines.")
+        return
+
+    if userBalance < bet:
+        await channel.send(
+            f"You don't have enough balance to place a bet of {bet}. Your balance is {userBalance}."
+        )
+        return
+
+    if bet < 1:
+        await channel.send("You must bet at least $1.")
+        return
+
+    await channel.send(f"Bet: {bet}")
+    await channel.send(f"Mine Count: {mineCount}")
+    time.sleep(0.25)
     await channel.send(f"{question} {question} {question} {question} {question}")
+    time.sleep(0.25)
     await channel.send(f"{question} {question} {question} {question} {question}")
+    time.sleep(0.25)
     await channel.send(f"{question} {question} {question} {question} {question}")
+    time.sleep(0.25)
     await channel.send(f"{question} {question} {question} {question} {question}")
+    time.sleep(0.25)
     await channel.send(f"{question} {question} {question} {question} {question}")
+
 
 async def blackjack(user, bet, channel):
     # Checks if User has data in casinoData, if not uploads data starting with $1000
@@ -169,8 +206,12 @@ async def blackjack(user, bet, channel):
         )
         return
 
+    if bet < 1:
+        await channel.send("You must bet at least $1.")
+        return
+
     # Define card deck as set
-    card_face = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'jack', 'queen', 'king', 'ace']
+    card_face = [2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "queen", "king", "ace"]
     card_suit = ["hearts", "diamonds", "clubs", "spades"]
     deck = [(face, suit) for face in card_face for suit in card_suit]
     random.shuffle(deck)
@@ -188,9 +229,9 @@ async def blackjack(user, bet, channel):
         aces = 0
         for card in hand:
             face = card[0]
-            if face in ['jack', 'queen', 'king']:
+            if face in ["jack", "queen", "king"]:
                 value += 10
-            elif face == 'ace':
+            elif face == "ace":
                 aces += 1
             else:
                 value += int(face)
@@ -313,6 +354,10 @@ async def slots(user, bet, channel):
         await channel.send(
             f"You don't have enough balance to place a bet of {bet}. Your balance is {userBalance}."
         )
+        return
+
+    if bet < 1:
+        await channel.send("You must bet at least $1.")
         return
 
     time.sleep(0.5)
