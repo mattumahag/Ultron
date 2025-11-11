@@ -3,7 +3,10 @@ import os
 from discord import *
 from discord.ext.commands import has_permissions
 from discord.ext import commands
+from dotenv import load_dotenv
 from vars import *
+
+load_dotenv()
 
 bot = commands.Bot(
     command_prefix=["!", "umahag override -"],
@@ -32,4 +35,4 @@ async def load_cogs():
                 print(f"Error loading {filename}: {e}")
 
 
-bot.run(TOKEN)
+bot.run(os.getenv("TOKEN"))

@@ -5,10 +5,13 @@ import base64
 import time
 import os
 import sys
+from dotenv import load_dotenv
 from settings import *
 from pathlib import Path
 from openai import OpenAI, OpenAIError
 from discord.ext import commands, tasks
+
+load_dotenv()
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import settings
@@ -21,7 +24,7 @@ logging.basicConfig(
 )
 
 openai = OpenAI(
-    api_key="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",
+    api_key=os.getenv("OPEN_AI_KEY"),
 )
 
 # Chat bot conversation holder
