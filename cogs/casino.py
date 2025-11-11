@@ -19,6 +19,8 @@ gem = ":gem:"
 coin = ":coin:"
 question = ":question:"
 
+bomb = ":bomb:"
+
 symbols = [cherries, squirts, lemon, seven, bell, grapes, eggplant, gem, coin]
 
 
@@ -52,7 +54,7 @@ class Casino(discord.ui.View):
         self.bot = bot
 
     # Slots button
-    @discord.ui.button(label="Slots 🎰", style=discord.ButtonStyle.red)
+    @discord.ui.button(label="Slots 🎰", style=discord.ButtonStyle.blurple)
     async def Slots(self, interaction: discord.Interaction, button: discord.ui.Button):
 
         if hasMoney(interaction.user) == False:
@@ -103,7 +105,52 @@ class Casino(discord.ui.View):
         time.sleep(2)
         await msg.delete()
         await q.delete()
+    
+    @discord.ui.button(label="Mines 💣", style=discord.ButtonStyle.red)
+    async def Mines(self, interaction: discord.Interaction, button: discord.ui.Button):
 
+        if hasMoney(interaction.user) == False:
+            await interaction.response.send_message("You have 0 dollars!")
+            return
+
+        def check(msg):
+            return (
+                msg.author == interaction.user
+                and msg.channel == interaction.channel
+                and int(msg.content)
+            )
+
+        await interaction.response.defer()
+
+        q = await interaction.followup.send(
+            "How much will you bet " + interaction.user.name + "?"
+        )
+
+        msg = await self.bot.wait_for("message", check=check)
+        bet = int(msg.content)
+        time.sleep(2)
+        await msg.delete()
+        await q.delete()
+
+        q = await interaction.followup.send(
+            "How many mines will you place " + interaction.user.name + "?"
+        )
+
+        msg = await self.bot.wait_for("message", check=check)
+        mineCount = int(msg.content)
+        time.sleep(2)
+        await msg.delete()
+        await q.delete()
+
+        await mines(user=interaction.user, bet=bet, mineCount=mineCount, channel=interaction.channel)
+
+
+async def mines(user, bet, mineCount, channel):
+    await channel.send(f"{question} {question} {question} {question} {question}")
+    await channel.send(f"{question} {question} {question} {question} {question}")
+    await channel.send(f"{question} {question} {question} {question} {question}")
+    await channel.send(f"{question} {question} {question} {question} {question}")
+    await channel.send(f"{question} {question} {question} {question} {question}")
 
 async def blackjack(user, bet, channel):
     # Checks if User has data in casinoData, if not uploads data starting with $1000

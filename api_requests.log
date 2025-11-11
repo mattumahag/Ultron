@@ -1282,3 +1282,67 @@ Traceback (most recent call last):
     raise Forbidden(response, data)
 discord.errors.Forbidden: 403 Forbidden (error code: 50013): Missing Permissions
 2025-11-10 20:47:17 - Shard ID None has successfully RESUMED session a3ccf2a93fbbc92432c9fde3aa88d0a4.
+2025-11-10 21:05:47 - Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "blackjack" is not found
+2025-11-10 21:16:34 - Shard ID None session has been invalidated.
+2025-11-10 21:16:45 - Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "crash" is not found
+2025-11-10 21:55:03 - Shard ID None session has been invalidated.
+2025-11-10 21:55:08 - Shard ID None has connected to Gateway (Session ID: 0129007b2d749565964e93e7eb28e720).
+2025-11-10 22:02:12 - Shard ID None session has been invalidated.
+2025-11-10 22:02:17 - Shard ID None has connected to Gateway (Session ID: a7e9bed174336965cf0404d50ef68aaa).
+2025-11-10 22:07:39 - Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "casino" is not found
+2025-11-10 22:17:26 - Ignoring exception in view <Casino timeout=180.0 children=3> for item <Button style=<ButtonStyle.danger: 4> url=None disabled=False label='Mines 💣' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 122, in Mines
+    await interaction.response.defer()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/interactions.py", line 687, in defer
+    raise InteractionResponded(self._parent)
+discord.errors.InteractionResponded: This interaction has already been responded to before
+2025-11-10 22:17:40 - Ignoring exception in view <Casino timeout=180.0 children=3> for item <Button style=<ButtonStyle.danger: 4> url=None disabled=False label='Mines 💣' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 130, in Mines
+    await msg.delete()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/message.py", line 1001, in delete
+    await self._state.http.delete_message(self.channel.id, self.id)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/http.py", line 752, in request
+    raise Forbidden(response, data)
+discord.errors.Forbidden: 403 Forbidden (error code: 50013): Missing Permissions
+2025-11-10 22:26:56 - Ignoring exception in view <Casino timeout=180.0 children=3> for item <Button style=<ButtonStyle.danger: 4> url=None disabled=False label='Mines 💣' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 132, in Mines
+    await msg.delete()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/message.py", line 1001, in delete
+    await self._state.http.delete_message(self.channel.id, self.id)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/http.py", line 752, in request
+    raise Forbidden(response, data)
+discord.errors.Forbidden: 403 Forbidden (error code: 50013): Missing Permissions
+2025-11-10 22:28:36 - Ignoring exception in view <Casino timeout=180.0 children=3> for item <Button style=<ButtonStyle.primary: 1> url=None disabled=False label='Slots 🎰' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 79, in Slots
+    await msg.delete()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/message.py", line 1001, in delete
+    await self._state.http.delete_message(self.channel.id, self.id)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/http.py", line 752, in request
+    raise Forbidden(response, data)
+discord.errors.Forbidden: 403 Forbidden (error code: 50013): Missing Permissions
+2025-11-10 22:28:59 - Ignoring exception in view <Casino timeout=180.0 children=3> for item <Button style=<ButtonStyle.secondary: 2> url=None disabled=False label='Blackjack ♠️' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 106, in Blackjack
+    await msg.delete()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/message.py", line 1001, in delete
+    await self._state.http.delete_message(self.channel.id, self.id)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/http.py", line 752, in request
+    raise Forbidden(response, data)
+discord.errors.Forbidden: 403 Forbidden (error code: 50013): Missing Permissions
