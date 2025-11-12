@@ -3647,3 +3647,16 @@ discord.errors.ConnectionClosed: Shard ID None WebSocket closed with 1006
 2025-11-11 23:42:07 - HTTP Request: POST https://api.openai.com/v1/audio/speech "HTTP/1.1 200 OK"
 2025-11-11 23:42:07 - Username: stooneocean, User Input: 'stooneocean...', Input: death to pakistan, Type: Audio
 2025-11-11 23:42:08 - ffmpeg process 29897 successfully terminated with return code of 0.
+2025-11-12 13:57:13 - Ignoring exception in view <Casino timeout=180.0 children=3> for item <Button style=<ButtonStyle.secondary: 2> url=None disabled=False label='Blackjack ♠️' emoji=None row=None sku_id=None id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 555, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 301, in Blackjack
+    await msg.delete()
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/message.py", line 1308, in delete
+    await self._state.http.delete_message(self.channel.id, self.id)
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/http.py", line 769, in request
+    raise NotFound(response, data)
+discord.errors.NotFound: 404 Not Found (error code: 10008): Unknown Message
+2025-11-12 14:17:06 - Ignoring exception in command None
+discord.ext.commands.errors.CommandNotFound: Command "caisno" is not found

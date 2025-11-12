@@ -477,13 +477,23 @@ async def blackjack(user, bet, channel):
 
         async def hit_callback(interaction):
             if interaction.user == user:
+                await interaction.response.defer()
                 future.set_result("hit")
                 view.stop()
+            else:
+                await interaction.response.send_message(
+                    "This is not your game!", ephemeral=True
+                )
 
         async def stand_callback(interaction):
             if interaction.user == user:
+                await interaction.response.defer()
                 future.set_result("stand")
                 view.stop()
+            else:
+                await interaction.response.send_message(
+                    "This is not your game!", ephemeral=True
+                )
 
         hit_button.callback = hit_callback
         stand_button.callback = stand_callback
@@ -501,9 +511,11 @@ async def blackjack(user, bet, channel):
         if choice == "hit":
             player_hand.append(deck.pop())
             player_value = calculate_hand(player_hand)
+            player_cards = format_hand(player_hand)
             await game_message.edit(
                 content=f"Dealer's hand: {dealer_visible}\n"
-                f"{user.name}'s hand: {player_cards} (Value: {player_value})"
+                f"{user.name}'s hand: {player_cards} (Value: {player_value})",
+                view=None,
             )
             if player_value > 21:
                 break
