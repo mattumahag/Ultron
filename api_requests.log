@@ -3011,3 +3011,137 @@ Traceback (most recent call last):
   File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/http.py", line 752, in request
     raise Forbidden(response, data)
 discord.errors.Forbidden: 403 Forbidden (error code: 50013): Missing Permissions
+2025-11-11 19:26:17 - Ignoring exception in view <Casino timeout=180.0 children=3> for item <Button style=<ButtonStyle.danger: 4> url=None disabled=False label='Mines 💣' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 274, in Mines
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/tasks.py", line 452, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/client.py", line 482, in dispatch
+    result = condition(*args)
+             ^^^^^^^^^^^^^^^^
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 265, in check
+    await interaction.response.send_message("You have 0 dollars!")
+            ^^^^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: '!balance'
+2025-11-11 19:49:49 - Shard ID None session has been invalidated.
+2025-11-11 19:49:54 - Shard ID None has connected to Gateway (Session ID: 580678486da6cd1d24997f0c1155a2c1).
+2025-11-11 19:57:44 - Shard ID None session has been invalidated.
+2025-11-11 19:57:50 - Shard ID None has connected to Gateway (Session ID: 77c22437dc24728b57dcaf9e0b700ed8).
+2025-11-11 20:06:28 - Shard ID None session has been invalidated.
+2025-11-11 20:06:33 - Shard ID None has connected to Gateway (Session ID: e8631dfd22212addd22c63f226b69a3f).
+2025-11-11 20:12:02 - Shard ID None session has been invalidated.
+2025-11-11 20:12:07 - Shard ID None has connected to Gateway (Session ID: 201f91e4808e465d8f13dfe8b9a26720).
+2025-11-11 20:25:18 - Ignoring exception in view <Casino timeout=180.0 children=3> for item <Button style=<ButtonStyle.danger: 4> url=None disabled=False label='Mines 💣' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 311, in Mines
+    msg = await self.bot.wait_for("message", check=check)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/asyncio/tasks.py", line 452, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/client.py", line 482, in dispatch
+    result = condition(*args)
+             ^^^^^^^^^^^^^^^^
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 302, in check
+    and int(msg.content)
+        ^^^^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: '!balance'
+2025-11-11 20:25:42 - Ignoring exception in view <CashOutView timeout=None children=1> for item <CashOutButton style=<ButtonStyle.success: 3> url=None disabled=False label='💰 Cash Out' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 222, in callback
+    await self.view.game_view.reveal_all(interaction, lost=False)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 179, in reveal_all
+    f"✅ {self.user.name} cashed out safely after {safe_picks} gems revealed!\n"
+UnboundLocalError: cannot access local variable 'safe_picks' where it is not associated with a value
+2025-11-11 20:41:55 - Ignoring exception in view <Casino timeout=180.0 children=3> for item <Button style=<ButtonStyle.danger: 4> url=None disabled=False label='Mines 💣' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 326, in Mines
+    await mines(
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 391, in mines
+    view.cashout_message = cashout_message
+                           ^^^^^^^^^^^^^^^
+NameError: name 'cashout_message' is not defined
+2025-11-11 20:42:01 - Ignoring exception in view <MinesView timeout=None children=25> for item <MinesButton style=<ButtonStyle.secondary: 2> url=None disabled=True label='C4' emoji=None row=2 sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 65, in callback
+    await view.handle_choice(interaction, self)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 114, in handle_choice
+    await self.reveal_all(interaction, lost=True)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 165, in reveal_all
+    await interaction.followup.send(
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/webhook/async_.py", line 1843, in send
+    data = await adapter.execute_webhook(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/webhook/async_.py", line 221, in request
+    raise NotFound(response, data)
+discord.errors.NotFound: 404 Not Found (error code: 10015): Unknown Webhook
+2025-11-11 20:42:05 - Ignoring exception in view <CashOutView timeout=None children=1> for item <CashOutButton style=<ButtonStyle.success: 3> url=None disabled=False label='💰 Cash Out' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 221, in callback
+    await self.view.game_view.reveal_all(interaction, lost=False)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 184, in reveal_all
+    self.data[user_id]["balance"] += winnings
+    ~~~~~~~~~^^^^^^^^^
+KeyError: '239116660592738304'
+2025-11-11 20:43:14 - Ignoring exception in view <Casino timeout=180.0 children=3> for item <Button style=<ButtonStyle.danger: 4> url=None disabled=False label='Mines 💣' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 327, in Mines
+    await mines(
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 392, in mines
+    view.cashout_message = cashout_message
+                           ^^^^^^^^^^^^^^^
+NameError: name 'cashout_message' is not defined
+2025-11-11 20:44:07 - Ignoring exception in view <Casino timeout=180.0 children=3> for item <Button style=<ButtonStyle.danger: 4> url=None disabled=False label='Mines 💣' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 327, in Mines
+    await mines(
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 392, in mines
+    view.cashout_message = cashout_message
+                           ^^^^^^^^^^^^^^^
+NameError: name 'cashout_message' is not defined
+2025-11-11 20:44:36 - Ignoring exception in view <Casino timeout=180.0 children=3> for item <Button style=<ButtonStyle.danger: 4> url=None disabled=False label='Mines 💣' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 327, in Mines
+    await mines(
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 392, in mines
+    view.cashout_message = cashout_message
+                           ^^^^^^^^^^^^^^^
+NameError: name 'cashout_message' is not defined
+2025-11-11 20:44:37 - Ignoring exception in view <CashOutView timeout=None children=1> for item <CashOutButton style=<ButtonStyle.success: 3> url=None disabled=False label='💰 Cash Out' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 222, in callback
+    await self.view.game_view.reveal_all(interaction, lost=False)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 180, in reveal_all
+    f"✅ {self.user.name} cashed out safely after {safe_picks} gems revealed!\n"
+UnboundLocalError: cannot access local variable 'safe_picks' where it is not associated with a value
+2025-11-11 20:45:02 - Ignoring exception in view <Casino timeout=180.0 children=3> for item <Button style=<ButtonStyle.danger: 4> url=None disabled=False label='Mines 💣' emoji=None row=None sku_id=None>
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/discord/ui/view.py", line 430, in _scheduled_task
+    await item.callback(interaction)
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 327, in Mines
+    await mines(
+  File "/Users/matthewumahag/Desktop/Ultron/cogs/casino.py", line 392, in mines
+    view.cashout_message = cashout_message
+                           ^^^^^^^^^^^^^^^
+NameError: name 'cashout_message' is not defined
