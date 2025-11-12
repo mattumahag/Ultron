@@ -180,10 +180,10 @@ class MinesView(discord.ui.View):
                 )
             else:
                 multiplier = self.multiplier
-                winnings = int(self.bet * multiplier)
+                winnings = round((self.bet * multiplier - self.bet), 2)
                 await self.channel.send(
                     f"✅ {self.user.name} cashed out safely after {safe_picks} gems revealed!\n"
-                    f"You won **${winnings}** 💰 (x{multiplier:.2f})"
+                    f"You won **${winnings:.3}** 💰 (x{multiplier:.2f})"
                 )
 
             # Update balance
