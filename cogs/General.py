@@ -1,5 +1,6 @@
 import discord
 import random
+import nacl
 from vars import *
 from discord.ext import commands
 
@@ -54,8 +55,15 @@ class General(commands.Cog):
     # Makes the bot join the vc
     @commands.command()
     async def join(self, ctx):
+        if ctx.author.voice.channel is None:
+            await ctx.send("You're not in a voice channel!")
+            return
+
         channel = ctx.author.voice.channel
-        await channel.connect()
+        if ctx.voice_client:
+            await ctx.voice_client.move_to(channel)
+        else:
+            await channel.connect()
 
     # Makes the bot leave the vc
     @commands.command()

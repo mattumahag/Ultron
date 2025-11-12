@@ -212,8 +212,9 @@ class ultronAI(commands.Cog):
     async def create(self, ctx, *, prompt):
 
         if settings.imageGen == False:
-            await ctx.channel.send("Image generation is not enabled.")
-            return
+            if ctx.author.id != muID:
+                await ctx.channel.send("Image generation is not enabled.")
+                return
 
         try:
             response = openai.images.generate(

@@ -154,7 +154,9 @@ class MinesView(discord.ui.View):
 
         if lost:
             # Lose condition
-            await self.channel.send(f"💥 You hit a mine, {self.user.name}! You lost ${self.bet}.")
+            await self.channel.send(
+                f"💥 You hit a mine, {self.user.name}! You lost ${self.bet}."
+            )
             self.data["Users"][user_id]["Balance"] -= self.bet
 
             # Remove Cash Out button if it exists
@@ -201,11 +203,9 @@ class MinesView(discord.ui.View):
                 except:
                     pass
 
-
         # Save data
         with open("casinoData.json", "w") as f:
             json.dump(self.data, f, indent=4)
-
 
     def format_embed(self):
         desc = "\n".join(" ".join(row) for row in self.board)
@@ -398,7 +398,9 @@ async def mines(user, bet, mineCount, channel, interaction, bot):
 
     cashout_view = CashOutView(view)
 
-    cashout_message = await channel.send("💰 **Press to cash out anytime!**", view=cashout_view)
+    cashout_message = await channel.send(
+        "💰 **Press to cash out anytime!**", view=cashout_view
+    )
     view.cashout_message = cashout_message
 
 
