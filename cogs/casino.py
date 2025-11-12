@@ -75,7 +75,9 @@ class CashOutButton(discord.ui.Button):
 
 
 class MinesView(discord.ui.View):
-    def __init__(self, user, bet, mineCount, data, channel, board_message, board, mine_positions):
+    def __init__(
+        self, user, bet, mineCount, data, channel, board_message, board, mine_positions
+    ):
         super().__init__(timeout=None)
         self.user = user
         self.bet = bet
@@ -98,11 +100,12 @@ class MinesView(discord.ui.View):
             for c in range(self.SIZE):
                 label = f"{chr(65 + r)}{c + 1}"
                 self.add_item(MinesButton(label, r, c))
-                
 
     async def handle_choice(self, interaction, button):
         if interaction.user != self.user:
-            await interaction.response.send_message("This isn't your game!", ephemeral=True)
+            await interaction.response.send_message(
+                "This isn't your game!", ephemeral=True
+            )
             return
 
         # Check if mine
@@ -118,7 +121,9 @@ class MinesView(discord.ui.View):
             # Increase multiplier slightly each safe reveal
             self.multiplier *= self.growth_rate
 
-            await interaction.response.edit_message(embed=self.format_embed(), view=self)
+            await interaction.response.edit_message(
+                embed=self.format_embed(), view=self
+            )
 
     async def reveal_all(self, interaction, lost=False):
         # Reveal all tiles
@@ -169,7 +174,7 @@ class MinesView(discord.ui.View):
                 f"**Multiplier:** x{self.multiplier:.2f}\n\n"
                 f"{desc}"
             ),
-            color=discord.Color.blurple()
+            color=discord.Color.blurple(),
         )
         return embed
 
@@ -180,7 +185,9 @@ class CashOutButton(discord.ui.Button):
 
     async def callback(self, interaction: discord.Interaction):
         if interaction.user != self.view.game_view.user:
-            await interaction.response.send_message("This isn't your game!", ephemeral=True)
+            await interaction.response.send_message(
+                "This isn't your game!", ephemeral=True
+            )
             return
         await self.view.game_view.reveal_all(interaction, lost=False)
 
@@ -337,20 +344,21 @@ async def mines(user, bet, mineCount, channel, interaction, bot):
         description=(
             f"**Bet:** ${bet}\n"
             f"**Mines:** {mineCount}\n"
-            f"**Multiplier:** x1.00\n\n" +
-            "\n".join(" ".join(row) for row in board)
+            f"**Multiplier:** x1.00\n\n" + "\n".join(" ".join(row) for row in board)
         ),
-        color=discord.Color.blurple()
+        color=discord.Color.blurple(),
     )
 
     board_message = await channel.send(embed=embed)
-    view = MinesView(user, bet, mineCount, data, channel, board_message, board, mine_positions)
+    view = MinesView(
+        user, bet, mineCount, data, channel, board_message, board, mine_positions
+    )
     await board_message.edit(view=view)
 
     # 💰 Create a separate message with the Cash Out button
     cashout_view = CashOutView(view)
     await channel.send("💰 **Press to cash out anytime!**", view=cashout_view)
-        
+
 
 async def blackjack(user, bet, channel):
     # Checks if User has data in casinoData, if not uploads data starting with $1000
