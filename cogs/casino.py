@@ -21,6 +21,8 @@ question = ":question:"
 
 mine = ":bomb:"
 
+startMoney = 5000
+
 symbols = [cherries, squirts, lemon, seven, bell, grapes, eggplant, gem, coin]
 
 
@@ -259,7 +261,7 @@ class Casino(discord.ui.View):
             return (
                 msg.author == interaction.user
                 and msg.channel == interaction.channel
-                and int(msg.content)
+                and msg.content
             )
 
         await interaction.response.defer()
@@ -312,7 +314,7 @@ class Casino(discord.ui.View):
             return (
                 msg.author == interaction.user
                 and msg.channel == interaction.channel
-                and int(msg.content)
+                and msg.content
             )
 
         await interaction.response.defer()
@@ -322,7 +324,7 @@ class Casino(discord.ui.View):
         )
 
         msg = await self.bot.wait_for("message", check=check)
-        bet = int(msg.content)
+        bet = float(msg.content)
         time.sleep(0.5)
         await msg.delete()
         await q.delete()
@@ -357,7 +359,7 @@ async def mines(user, bet, mineCount, channel, interaction, bot):
     if "Users" not in data:
         data["Users"] = {}
     if str(user.id) not in data["Users"]:
-        data["Users"][str(user.id)] = {"Balance": 1000}
+        data["Users"][str(user.id)] = {"Balance": startMoney}
         with open("casinoData.json", "w") as f:
             json.dump(data, f, indent=4)
 
@@ -405,11 +407,11 @@ async def mines(user, bet, mineCount, channel, interaction, bot):
 
 
 async def blackjack(user, bet, channel):
-    # Checks if User has data in casinoData, if not uploads data starting with $1000
+    # Checks if User has data in casinoData, if not uploads data starting with ${startMoney}
     with open("casinoData.json") as f:
         data = json.load(f)
     if not contains_value("casinoData.json", user.id):
-        data["Users"][str(user.id)] = {"Balance": 1000}
+        data["Users"][str(user.id)] = {"Balance": startMoney}
         with open("casinoData.json", "w") as f:
             json.dump(data, f, indent=4)
 
@@ -567,11 +569,11 @@ async def blackjack(user, bet, channel):
 
 # Slots game, activated by button in !casino
 async def slots(user, bet, channel):
-    # Checks if User has data in casinoData, if not uploads data starting with $1000
+    # Checks if User has data in casinoData, if not uploads data starting with ${startMoney}
     with open("casinoData.json") as f:
         data = json.load(f)
     if not contains_value("casinoData.json", user.id):
-        data["Users"][str(user.id)] = {"Balance": 1000}
+        data["Users"][str(user.id)] = {"Balance": startMoney}
         with open("casinoData.json", "w") as f:
             json.dump(data, f, indent=4)
 
